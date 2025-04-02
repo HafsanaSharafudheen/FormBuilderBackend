@@ -1,16 +1,18 @@
-import { FormEntity } from "../../../Entities/formEntity";
-import { saveFormData } from "../../../Frameworks/DataBase/Repositories/formRepository";
+import { CanvasDataRepository } from "../../../Frameworks/DataBase/Repositories/CanvasDataRepository ";
 
+export class CanvasDataUseCase {
+    private canvasDataRepository: CanvasDataRepository;
 
-export const handleSaveFormData = async (formData: FormEntity) => {
-    try {
-        const savedForm = await saveFormData(formData);
-        return {
-            status: true,
-            message: "Form data saved successfully",
-            savedForm,
-        };
-    } catch (error) {
-        throw new Error("Error saving form data");
+    constructor() {
+        this.canvasDataRepository = new CanvasDataRepository();
     }
-};
+
+    // Use case for saving the canvas data
+    public async storeCanvasData(data: any): Promise<any> {
+        try {
+            return await this.canvasDataRepository.saveCanvasData(data);
+        } catch (error) {
+            throw new Error('Error storing canvas data');
+        }
+    }
+}

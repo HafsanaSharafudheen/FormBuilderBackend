@@ -1,8 +1,8 @@
 import express from "express";
-import { saveFormController } from "../../../AdapterLayer/FormController/formController";
+import { uploadComponent } from "../../../AdapterLayer/FormController/uploadController";
 
 const formRouter = express.Router();
 
-formRouter.post("/saveFormData", saveFormController);
+formRouter.post('/upload', uploadComponent); 
 
 export default formRouter;

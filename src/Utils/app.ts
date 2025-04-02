@@ -7,9 +7,11 @@ import AppError from "../Utils/appError";
 import serverConfig from "../Frameworks/Webserver/server";
 import routes from "../Frameworks/Webserver/Routes";
 import dotenv from "dotenv";
+const cors = require("cors");
 
 const app: Application = express();
 app.use(express.json());
+app.use(cors());
 dotenv.config();
 
 const server = http.createServer(app);
@@ -22,9 +24,9 @@ expressConfig(app);
 routes(app);
 
 app.use(errorHandlingMiddleware);
-app.all("*", (req, res, next: NextFunction) => {
-  next(new AppError("Not found", 404));
-});
+// app.all("*", (req, res, next: NextFunction) => {
+//   next(new AppError("Not found", 404));
+// });
 
 serverConfig(server).startServer();
 

@@ -1,15 +1,21 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
-const canvasDataSchema = new mongoose.Schema({
-  components: { type: Array, required: true },
-  ApplicationData: { type: Object, required: false },
-  originalFilename: { type: String, required: true }
+export interface ICanvasData extends Document {
+  filePath: string;
+  createdAt: Date;
+}
+
+const canvasDataSchema = new Schema<ICanvasData>({
+  filePath: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-
-
-
-
-const CanvasDataModel = mongoose.model('CanvasData', canvasDataSchema);
+const CanvasDataModel = mongoose.model<ICanvasData>("CanvasData", canvasDataSchema);
 
 export default CanvasDataModel;

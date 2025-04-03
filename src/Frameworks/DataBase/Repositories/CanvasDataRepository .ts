@@ -1,19 +1,12 @@
-import CanvasDataModel from "../DbModels/canvasDataModel";
+// src/Repositories/canvasRepository.ts
 
-export class CanvasDataRepository {
-    // Save canvas data to the database
-    public async saveCanvasData(data: any): Promise<any> {
-        try {
-            const newCanvasData = new CanvasDataModel({
-                components: data.components || [],
-                ApplicationData: data.ApplicationData || {},
-                originalFilename: data.originalFilename,
-            });
+import CanvasDataModel,{ICanvasData} from "../DbModels/canvasDataModel";
 
-            // Save the data to MongoDB
-            return await newCanvasData.save();
-        } catch (error) {
-            throw new Error('Error saving canvas data to database');
-        }
-    }
-}
+export const saveCanvasData = async (filePath: string): Promise<ICanvasData> => {
+  try {
+    const canvasData = await CanvasDataModel.create({ filePath });
+    return canvasData;
+  } catch (error) {
+    throw new Error("Error saving canvas data to database: " + error);
+  }
+};
